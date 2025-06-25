@@ -1,0 +1,39 @@
+name: Generate Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "workflows/**.json"
+      - ".github/workflows/generate-doc.yml"
+  workflow_dispatch:
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install packages
+        run: npm install -g n8n-workflow-docs
+
+      - name: Generate docs
+        run: n8n-workflow-docs workflows/ > workflow-documentation.html
+
+      - name: Commit & Push generated docs
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add workflow-documentation.html || echo "Nothing to add"
+          git commit -m "📝 Auto-generate workflow documentation [skip ci]" || echo "No changes to commit"
+          git push
+
+          
+

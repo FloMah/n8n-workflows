@@ -1,0 +1,35 @@
+name: Generate Workflow Documentation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install jinja2
+
+      - name: Generate documentation
+        run: python generate_documentation.py
+
+      - name: Commit & Push generated docs
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add workflow-documentation.html || echo "Nothing to add"
+          git commit -m "📝 Auto-generate workflow documentation [skip ci]" || echo "No changes to commit"
+          git push
+File: .github/workflows/generate-doc.yml
+
+

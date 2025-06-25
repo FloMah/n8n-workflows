@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Crée les sous-dossiers dans le dossier "workflows"
+cd workflows || exit
+chmod +x create_folders.sh
+./create_folders.sh
+
+
+folders=(  "email"
+  "telegram"
+  "slack"
+  "CRM"
+  "SEO"
+  "youtube"
+  "AI_agents"
+  "agents_llm"
+  "semantic_search"
+  "scraping"
+  "database"
+  "notion"
+  "automation"
+  "analytics"
+  "utils"
+  "pdf_processing"
+  "data_pipelines"
+  "content_generation"
+  "form_submissions"
+  "cloud_storage"
+  "sms"
+  "system_admin"
+  "webhooks"
+  "billing_invoicing"
+  "llm_tools"
+  "testing_debug"
+)
+
+for folder in "${folders[@]}"; do
+  mkdir -p "$folder"
+  echo "📁 Dossier créé : $folder"
+don
+
+echo "✅ Tous les dossiers ont été créés avec succès."
+chmod +x create_folders.sh
+chmod +x create_folders.sh
+./create_folders.sh
+
